@@ -7,7 +7,7 @@ import reactor.test.StepVerifier;
 public class FluxAndMonoTest {
 
     @Test
-    void fluxTest(){
+    void fluxTest() {
         Flux<String> stringFlux = Flux.just("Spring", "Spring Boot", "Reactive Spring")
                 .concatWith(Flux.error(new RuntimeException("Error")))
                 .concatWith(Flux.just("After Error"))
@@ -19,7 +19,7 @@ public class FluxAndMonoTest {
     }
 
     @Test
-    public void fluxTestElements_WithoutError(){
+    public void fluxTestElements_WithoutError() {
         Flux<String> stringFlux = Flux.just("Spring", "Spring Boot", "Reactive Spring")
                 .log();
 
@@ -28,6 +28,20 @@ public class FluxAndMonoTest {
                 .expectNext("Spring Boot")
                 .expectNext("Reactive Spring")
                 .verifyComplete();
+    }
+
+    @Test
+    public void fluxTestElements_WithError() {
+        Flux<String> stringFlux = Flux.just("Spring", "Spring Boot", "Reactive Spring")
+                .concatWith(Flux.error(new RuntimeException("Error")))
+                .log();
+
+        StepVerifier.create(stringFlux)
+                .expectNext("Spring")
+                .expectNext("Spring Boot")
+                .expectNext("Reactive Spring")
+                .expectError(RuntimeException.class)
+                .verify();
 
     }
 }
