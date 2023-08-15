@@ -65,4 +65,10 @@ public class FluxAndMonoTest {
                 .expectNext("Spring")
                 .verifyComplete();
     }
+
+    @Test
+    public void monoTest_withError() {
+        StepVerifier.create(Mono.error(new RuntimeException("Error")))
+                .expectError(RuntimeException.class);
+    }
 }
