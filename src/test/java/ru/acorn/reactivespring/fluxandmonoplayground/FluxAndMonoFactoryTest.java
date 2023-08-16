@@ -2,6 +2,7 @@ package ru.acorn.reactivespring.fluxandmonoplayground;
 
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.util.Arrays;
@@ -43,6 +44,15 @@ public class FluxAndMonoFactoryTest {
 
         StepVerifier.create(namesFlux)
                 .expectNext("adam", "anna", "factor")
+                .verifyComplete();
+    }
+
+    @Test
+    public void monoUsingJustOrEmpty(){
+
+        Mono<String> mono = Mono.justOrEmpty(null);
+
+        StepVerifier.create(mono)
                 .verifyComplete();
     }
 }
