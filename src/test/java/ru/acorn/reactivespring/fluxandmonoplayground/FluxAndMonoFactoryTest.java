@@ -75,7 +75,7 @@ public class FluxAndMonoFactoryTest {
     @Test
     public void fluxUsingRange(){
 
-        Flux<Integer> integerFlux = Flux.range(1, 5);
+        Flux<Integer> integerFlux = Flux.range(1, 5).log();
 
         StepVerifier.create(integerFlux)
                 .expectNext(1, 2, 3, 4, 5)
