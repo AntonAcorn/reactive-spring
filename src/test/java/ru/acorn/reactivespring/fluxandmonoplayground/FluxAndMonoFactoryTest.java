@@ -70,4 +70,15 @@ public class FluxAndMonoFactoryTest {
                 .expectNext("Adam")
                 .verifyComplete();
     }
+
+
+    @Test
+    public void fluxUsingRange(){
+
+        Flux<Integer> integerFlux = Flux.range(1, 5);
+
+        StepVerifier.create(integerFlux)
+                .expectNext(1, 2, 3, 4, 5)
+                .verifyComplete();
+    }
 }
