@@ -12,7 +12,7 @@ public class FluxAndMonoTransportTest {
     List<String> names = Arrays.asList("adam", "anna", "factor");
 
     @Test
-    public void transformUsingMap(){
+    public void transformUsingMap() {
 
         Flux<String> namesFlux = Flux.fromIterable(names)
                 .map(s -> s.toUpperCase())
@@ -20,6 +20,18 @@ public class FluxAndMonoTransportTest {
 
         StepVerifier.create(namesFlux)
                 .expectNext("ADAM", "ANNA", "FACTOR")
+                .verifyComplete();
+    }
+
+    @Test
+    public void transformUsingMap_Length() {
+
+        Flux<Integer> namesFlux = Flux.fromIterable(names)
+                .map(s -> s.length())
+                .log();
+
+        StepVerifier.create(namesFlux)
+                .expectNext(4, 4, 6)
                 .verifyComplete();
     }
 }
