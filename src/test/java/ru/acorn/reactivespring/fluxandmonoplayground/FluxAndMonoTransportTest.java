@@ -34,4 +34,17 @@ public class FluxAndMonoTransportTest {
                 .expectNext(4, 4, 6)
                 .verifyComplete();
     }
+
+    @Test
+    public void transformUsingMap_Filter() {
+
+        Flux<String> namesFlux = Flux.fromIterable(names)
+                .filter(s -> s.length() > 4)
+                .map(s -> s.toUpperCase())
+                .log();
+
+        StepVerifier.create(namesFlux)
+                .expectNext("FACTOR")
+                .verifyComplete();
+    }
 }
