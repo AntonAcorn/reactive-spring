@@ -10,5 +10,4 @@ public class ReactiveSpringApplication {
 		SpringApplication.run(ReactiveSpringApplication.class, args);
 	}
 	
-
 }
